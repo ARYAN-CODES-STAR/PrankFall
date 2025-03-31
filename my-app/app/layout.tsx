@@ -1,15 +1,12 @@
-import type React from "react"
-import "./globals.css"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-// import { ThemeProvider } from "@/components/theme-provider"
+import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Gravity Website - April Fools' Prank",
-  description:
-    "A website where elements start falling down the page as if gravity suddenly started affecting the DOM elements.",
+  title: "QuantumFlux UI 2.0",
+  description: "Experience the world's first quantum-entangled interface framework. Warning: May cause gravitational anomalies in classical computing environments!",
 }
 
 export default function RootLayout({
@@ -20,11 +17,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {/* <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange> */}
-          {children}
-        {/* </ThemeProvider> */}
+        <div id="black-hole" className="absolute hidden w-8 h-8 bg-purple-500/30 rounded-full blur-xl" />
+        {children}
       </body>
     </html>
   )
 }
-

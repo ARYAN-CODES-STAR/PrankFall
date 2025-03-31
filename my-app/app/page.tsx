@@ -9,9 +9,9 @@ import { ArrowDown, Info, MessageSquare, Settings, User } from "lucide-react"
 
 export default function Home() {
   const [gravityEnabled, setGravityEnabled] = useState(false)
+  // Removed unused blackHolePos state
 
   useEffect(() => {
-    // Wait a few seconds before enabling gravity for surprise effect
     const timer = setTimeout(() => {
       setGravityEnabled(true)
     }, 3000)
@@ -19,40 +19,68 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [])
 
+  useEffect(() => {
+    if (!gravityEnabled) return
+
+    // Auto-scroll prank
+    const handleClick = () => {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' })
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }, 2000)
+    }
+
+    // Black hole effect
+    const createBlackHole = (e: MouseEvent) => {
+      const hole = document.getElementById('black-hole')
+      if (hole) {
+        hole.style.left = `${e.clientX - 14}px`
+        hole.style.top = `${e.clientY - 14}px`
+        hole.classList.remove('hidden')
+        setTimeout(() => hole.classList.add('hidden'), 500)
+      }
+    }
+
+    window.addEventListener('click', handleClick)
+    window.addEventListener('mousemove', createBlackHole)
+    
+    return () => {
+      window.removeEventListener('click', handleClick)
+      window.removeEventListener('mousemove', createBlackHole)
+    }
+  }, [gravityEnabled])
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white relative overflow-x-hidden">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
         <header className="flex justify-between items-center mb-12">
           <GravitatableElement enabled={gravityEnabled} delay={0} className="flex items-center gap-2">
             <div className="h-10 w-10 rounded-full bg-primary flex items-center justify-center">
               <ArrowDown className="text-white h-6 w-6" />
             </div>
-            <h1 className="text-2xl font-bold">Gravity Demo</h1>
+            <h1 className="text-2xl font-bold">QuantumFlux UI</h1>
           </GravitatableElement>
 
           <GravitatableElement enabled={gravityEnabled} delay={200} className="flex gap-4">
-            <Button variant="ghost">About</Button>
-            <Button variant="ghost">Features</Button>
-            <Button variant="ghost">Pricing</Button>
-            <Button variant="ghost">Contact</Button>
-            <Button>Sign Up</Button>
+            <Button variant="ghost">Documentation</Button>
+            <Button variant="ghost">Examples</Button>
+            <Button variant="ghost">GitHub</Button>
+            <Button>Try Demo</Button>
           </GravitatableElement>
         </header>
 
-        {/* Hero Section */}
         <section className="flex flex-col md:flex-row gap-8 mb-16">
           <GravitatableElement enabled={gravityEnabled} delay={500} className="flex-1">
             <div className="space-y-6">
-              <h2 className="text-4xl md:text-5xl font-bold">Discover the power of gravity</h2>
+              <h2 className="text-4xl md:text-5xl font-bold">Defy Conventional UI Physics</h2>
               <p className="text-lg text-gray-600">
-                Our innovative platform helps you understand how things fall into place. Perfect for businesses looking
-                to ground their ideas.
+                Harness quantum entanglement and gravitational dynamics in your web applications.
+                Finally, a framework that understands what goes up must come down!
               </p>
               <div className="flex gap-4">
-                <Button size="lg">Get Started</Button>
+                <Button size="lg">Start Experiment</Button>
                 <Button size="lg" variant="outline">
-                  Learn More
+                  Research Paper
                 </Button>
               </div>
             </div>
@@ -62,7 +90,7 @@ export default function Home() {
             <div className="relative h-[300px] w-full rounded-lg overflow-hidden">
               <Image
                 src="/placeholder.svg?height=600&width=800"
-                alt="Gravity illustration"
+                alt="Quantum field illustration"
                 fill
                 className="object-cover"
               />
@@ -70,12 +98,11 @@ export default function Home() {
           </GravitatableElement>
         </section>
 
-        {/* Features */}
         <section className="mb-16">
           <GravitatableElement enabled={gravityEnabled} delay={1000} className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Amazing Features</h2>
+            <h2 className="text-3xl font-bold mb-4">Quantum-Powered Features</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Our platform offers everything you need to make your projects successful.
+              Experience web development like never before with our physics-driven architecture.
             </p>
           </GravitatableElement>
 
@@ -83,25 +110,25 @@ export default function Home() {
             {[
               {
                 icon: <Info className="h-8 w-8" />,
-                title: "Insightful Analytics",
-                description: "Track how your elements fall with detailed metrics and reports.",
+                title: "Entanglement States",
+                description: "Components that maintain quantum coherence across renders",
                 delay: 1200,
               },
               {
                 icon: <Settings className="h-8 w-8" />,
-                title: "Customizable Controls",
-                description: "Adjust the gravity settings to match your specific needs.",
+                title: "Gravity Well API",
+                description: "Programmatic control over UI element mass and charge",
                 delay: 1400,
               },
               {
                 icon: <MessageSquare className="h-8 w-8" />,
-                title: "24/7 Support",
-                description: "Our team is always ready to help you when things are falling apart.",
+                title: "24/7 Superposition Support",
+                description: "Our team exists in multiple states simultaneously",
                 delay: 1600,
               },
             ].map((feature, index) => (
               <GravitatableElement key={index} enabled={gravityEnabled} delay={feature.delay}>
-                <Card className="p-6 h-full">
+                <Card className="p-6 h-full hover:shadow-lg transition-shadow">
                   <div className="flex flex-col items-center text-center">
                     <div className="mb-4 p-3 bg-primary/10 rounded-full text-primary">{feature.icon}</div>
                     <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
@@ -113,36 +140,33 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Testimonials */}
         <section className="mb-16">
           <GravitatableElement enabled={gravityEnabled} delay={1800} className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">What Our Users Say</h2>
+            <h2 className="text-3xl font-bold mb-4">Scientist Testimonials</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Dont just take our word for it. Heres what people are saying about our gravity-defying platform.
+              Peer-reviewed acclaim from leading quantum interface researchers
             </p>
           </GravitatableElement>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {[
               {
-                name: "Alex Johnson",
-                role: "Product Manager",
-                quote:
-                  "This platform completely changed how we approach our projects. Everything just falls into place now!",
+                name: "Dr. Ellen O'Conner",
+                role: "Quantum UX Researcher",
+                quote: "Finally bridges the gap between quantum physics and responsive design. The observer effect has never been this beautiful!",
                 delay: 2000,
               },
               {
-                name: "Sarah Williams",
-                role: "UX Designer",
-                quote:
-                  "I was skeptical at first, but now I can't imagine working without it. The gravity effect is mind-blowing!",
+                name: "Prof. Carlos Wu",
+                role: "Particle Interface Engineer",
+                quote: "We've achieved UI velocities previously thought impossible. Our conversion rates reached 99% light speed!",
                 delay: 2200,
               },
             ].map((testimonial, index) => (
               <GravitatableElement key={index} enabled={gravityEnabled} delay={testimonial.delay}>
-                <Card className="p-6">
+                <Card className="p-6 hover:shadow-lg transition-shadow">
                   <div className="flex flex-col">
-                    <p className="text-gray-600 italic mb-4">{testimonial.quote}</p>
+                    <p className="text-gray-600 italic mb-4">"{testimonial.quote}"</p>
                     <div className="flex items-center mt-auto">
                       <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
                         <User className="h-6 w-6 text-gray-500" />
@@ -159,15 +183,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CTA */}
         <GravitatableElement enabled={gravityEnabled} delay={2400}>
-          <Card className="p-8 bg-primary text-primary-foreground text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to experience gravity?</h2>
+          <Card className="p-8 bg-primary text-primary-foreground text-center hover:shadow-xl transition-shadow">
+            <h2 className="text-3xl font-bold mb-4">Ready for Quantum Development?</h2>
             <p className="mb-6 max-w-2xl mx-auto">
-              Join thousands of satisfied users who have already fallen for our platform.
+              Join thousands of developers bending spacetime with their UIs
             </p>
-            <Button size="lg" variant="secondary">
-              Get Started For Free
+            <Button size="lg" variant="secondary" className="animate-pulse">
+              Start Free Trial
             </Button>
           </Card>
         </GravitatableElement>
@@ -175,4 +198,3 @@ export default function Home() {
     </main>
   )
 }
-
