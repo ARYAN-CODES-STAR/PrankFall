@@ -118,7 +118,7 @@ export default function Home() {
           <GravitatableElement enabled={gravityEnabled} delay={1800} className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">What Our Users Say</h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Don't just take our word for it. Heres what people are saying about our gravity-defying platform.
+              Dont just take our word for it. Heres what people are saying about our gravity-defying platform.
             </p>
           </GravitatableElement>
 
