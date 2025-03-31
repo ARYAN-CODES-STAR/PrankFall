@@ -166,7 +166,7 @@ export default function Home() {
               <GravitatableElement key={index} enabled={gravityEnabled} delay={testimonial.delay}>
                 <Card className="p-6 hover:shadow-lg transition-shadow">
                   <div className="flex flex-col">
-                    <p className="text-gray-600 italic mb-4">"{testimonial.quote}"</p>
+                    <p className="text-gray-600 italic mb-4">{testimonial.quote}</p>
                     <div className="flex items-center mt-auto">
                       <div className="h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center mr-3">
                         <User className="h-6 w-6 text-gray-500" />
